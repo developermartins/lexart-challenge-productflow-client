@@ -22,7 +22,6 @@ type loginFormData = z.infer<typeof userLoginFormSchema>;
 const index = (props: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState('');
-  const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -109,7 +108,7 @@ const index = (props: Props) => {
           />
 
           <Input
-            type={ passwordVisibility === true ? 'text' : 'password' }
+            type={ 'password' }
             placeholder={ 'Password' }
             borderTopRightRadius={ '5px' }
             borderTopLeftRadius={ '5px' }
@@ -129,7 +128,7 @@ const index = (props: Props) => {
           }
 
           <Bottom>
-            <Recover as={ Link } to="/forgot-password">Recover password</Recover>
+            <Recover as={ Link } to="/create-account">Create account</Recover>
             {isLoading ?
               <LoaderContainer>
                 <ThreeCircles
@@ -210,7 +209,7 @@ const Form = styled.form`
 `;
 
 const Recover = styled.p`
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   text-decoration: none;
   color: var(--main-font-color);
   cursor: pointer;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ForgotPasswordBox from "../../components/ForgotPasswordBox";
+import CreateAccountBox from "../../components/CreateAccountBox";
 
 
 type Props = {}
@@ -7,7 +7,7 @@ type Props = {}
 const login = (props: Props) => {
   return (
     <MainSection>
-      <ForgotPasswordBox />
+      <CreateAccountBox />
     </MainSection>
   );
 };

@@ -7,7 +7,7 @@ import WritePost from './pages/WritePost';
 import WriteProject from './pages/WriteProject';
 import Project from './pages/Project';
 import Bio from './pages/Bio';
-import ForgotPassword from './pages/ForgotPassword';
+import CreateAccount from './pages/CreateAccount';
 import RecoverAccount from './pages/RecoverAccount';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './state/state';
@@ -58,8 +58,8 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path: '/forgot-password',
-        element: <ForgotPassword />
+        path: '/create-account',
+        element: <CreateAccount />
       },
       {
         path: '/recover-account',

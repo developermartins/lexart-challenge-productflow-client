@@ -5,6 +5,12 @@ export const userLoginFormSchema = z.object({
   password: z.string().min(1, { message: 'Password is required!' }),
 });
 
+export const userRegisterFormSchema = z.object({
+  username: z.string().min(1, { message: 'Username is required!' }),
+  email: z.string().min(1, { message: 'Email is required!' }),
+  password: z.string().min(8, { message: "Password must be atleast 8 characters" }),
+});
+
 export const userUpdatePasswordFormSchema = z.object({
   currentPassword: z.string().min(1, { message: 'Current password is required!' }),
   newPassword: z.string().min(8, { message: "Password must be atleast 8 characters" }),
