@@ -1,5 +1,3 @@
-import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import ApiErrorMessageSpan from "../../components/ApiErrorMessageSpan";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -125,17 +123,6 @@ const index = (props: Props) => {
             errorMessage={ errors?.password?.message }
           />
 
-          <PasswordVisibilityButton
-            type='button'
-            onClick={() => setPasswordVisibility(!passwordVisibility)}
-          >
-            {
-              passwordVisibility === true ? 
-                <VisibilityRoundedIcon fontSize='small' />
-              : <VisibilityOffRoundedIcon fontSize='small' />
-            }
-          </PasswordVisibilityButton>
-
           {
             apiErrorMessage && 
               <ApiErrorMessageSpan message={ apiErrorMessage } />
@@ -220,17 +207,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const PasswordVisibilityButton = styled.button`
-  background: none;
-  border: none;
-  outline: none;
-  color:  var(--main-font-color);
-  cursor: pointer;
-  position: absolute;
-  right: 25rem;
-  bottom: 29.5rem;
 `;
 
 const Recover = styled.p`
