@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { deleteDraft } from '../../api/draft';
 import { getDraftById } from '../../api/draft';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { deleteBlogPost, getBlogPostById } from '../../api/products';
+// import { deleteBlogPost, getBlogPostById } from '../../api/products';
 
 type Props = {}
 
@@ -22,39 +22,39 @@ const index = (props: Props) => {
 
   const [post, setPost] = useState<any>({});
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (page === 'draft') {
-      const getPostData = async () => {
-        const res = await getDraftById(id);
+  //   if (page === 'draft') {
+  //     const getPostData = async () => {
+  //       const res = await getDraftById(id);
   
-        setPost(res.data);
-      };
+  //       setPost(res.data);
+  //     };
 
-      getPostData();
-    } else {
-      const getPostData = async () => {
-        const res = await getBlogPostById(id);
+  //     getPostData();
+  //   } else {
+  //     const getPostData = async () => {
+  //       const res = await getBlogPostById(id);
   
-        setPost(res.data);
-      };
+  //       setPost(res.data);
+  //     };
 
-      getPostData();
-    };
+  //     getPostData();
+  //   };
 
-  }, []);
+  // }, []);
 
-  const handleDiscart = async () => {
-    if (page === 'draft') {
-      const res = await deleteDraft(id, token);
+  // const handleDiscart = async () => {
+  //   if (page === 'draft') {
+  //     const res = await deleteDraft(id, token);
 
-      res.status === 200 && navigate('/drafts')
-    } else {
-      const res = await deleteBlogPost(id, token);
+  //     res.status === 200 && navigate('/drafts')
+  //   } else {
+  //     const res = await deleteBlogPost(id, token);
   
-      res.status === 200 && navigate('/home');
-    };
-  };
+  //     res.status === 200 && navigate('/home');
+  //   };
+  // };
 
   return (
     <Box

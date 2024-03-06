@@ -6,37 +6,36 @@ import Filter from '../../components/Filter';
 import { AnimatePresence, motion } from 'framer-motion';
 import { getPortfolioPost } from '../../api/projects';
 import { ThreeCircles } from "react-loader-spinner";
-// import { getBlogPost } from '../../api/blog';
+import { getAllProducts } from '../../api/products';
 import { useEffect, useState } from 'react';
-import { getDraft } from '../../api/draft';
+import { useSelector } from 'react-redux';
 
 type Props = {}
 
 const index = (props: Props) => {
 
+  const token = useSelector((state: any) => state.token);
   const [isLoading, setIsLoading] = useState(false);
   const [filtered, setFiltered] = useState([]);
   const [activeFilter, setActiveFilter] = useState('posts');
-  const [data, setData] = useState({
-    blogPosts: [],
-    portfolio: [],
-    drafts: [],
-  });
+  const [data, setData] = useState([]);
 
   useEffect(() => {
 
     const loadData = async () => {
       setIsLoading(true);
 
+      const products = await getAllProducts(token);
 
-
-      // setData();
+      setFiltered(products.data);
 
       setIsLoading(false);
     };
 
     loadData();
   }, []);
+
+  console.log(data)
 
   return (
     <MainSection>
@@ -56,12 +55,12 @@ const index = (props: Props) => {
           <Top>
             <h1>Overview</h1>
 
-            <Filter
+            {/* <Filter
               data={ data }
               setFiltered={ setFiltered }
               activeFilter={ activeFilter }
               setActiveFilter={ setActiveFilter }
-            />
+            /> */}
           </Top>
 
           <Bottom>

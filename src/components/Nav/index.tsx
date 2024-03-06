@@ -1,25 +1,19 @@
 import styled from "styled-components";
-import Menu from '../../components/Menu';
-import CodeIcon from '@mui/icons-material/Code';
-import settingsIcon from '../../assets/settings.png';
+import QueueRoundedIcon from '@mui/icons-material/QueueRounded';
 import logo from "../../assets/martscode-base-logo.png";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import Face6RoundedIcon from '@mui/icons-material/Face6Rounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { makeLogout } from "../../state/state";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 
 type Props = {}
 
 const index = (props: Props) => {
 
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
 
   return (
     <Nav>
@@ -48,34 +42,14 @@ const index = (props: Props) => {
             <HomeRoundedIcon style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}  />
             Home
           </NavLink>
-          <NavLink to={'/write-post'}>
-            <EditNoteRoundedIcon style={{ fontSize: '1.5rem', marginRight: '0.5rem' }} />
-            Write post
-          </NavLink>
           <NavLink to={'/write-project'}>
-            <CodeIcon style={{ fontSize: '1.5rem', marginRight: '0.5rem' }} />
-            Add a project
-          </NavLink>
-          <NavLink to={'/bio'}>
-            <Face6RoundedIcon style={{ fontSize: '1.5rem', marginRight: '0.5rem' }} />
-            Bio
+            <QueueRoundedIcon style={{ fontSize: '1.5rem', marginRight: '0.5rem' }} />
+            Add a product
           </NavLink>
         </LinksContainer>
       </NavBox>
 
-      <Bottom>
-        <SettingsIcon
-          src={ settingsIcon }
-          as={ motion.img }
-          transition={{ duration: 0.5 }}
-          whileHover={{ scale: 1.2, rotate: 360 }}
-          onClick={() => setOpen(!open) }
-        />
-      </Bottom>	
       <p>Developed by developermartins</p>
-      <AnimatePresence>
-        { open && <Menu /> }
-      </AnimatePresence>
     </Nav>
   );
 };
@@ -90,7 +64,7 @@ const Nav = styled.nav`
   border-bottom-right-radius: 15px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 4rem;
   flex-direction: column;
   position: relative;
@@ -103,7 +77,6 @@ const Nav = styled.nav`
   p {
     color: var(--main-font-color);
     font-size: .6rem;
-    margin-bottom: 2rem;
     cursor: pointer;
   }
 `;
@@ -115,31 +88,17 @@ const Top = styled.div`
   justify-content: space-between;
 `;
 
-const Bottom = styled.div`
-  width: 80%;
-`;
-
 const Logo = styled.img`
-  width: 2rem;
-  height: 2rem;
-`;
-
-const SettingsIcon = styled.img`
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-`;
-
-const LogoutIcon = styled.img`
   width: 2rem;
   height: 2rem;
 `;
 
 const NavBox = styled.div`
   width: 100%;
+  height: 60%;
   display: flex;
   margin-top: 4rem;
-  margin-bottom: 4rem;
+  /* margin-bottom: 9rem; */
 `;
 
 const LinksContainer = styled.div`

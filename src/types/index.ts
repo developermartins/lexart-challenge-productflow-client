@@ -1,14 +1,14 @@
 type toDateString = Date;
 
-export type PostData = {
-  _id?: string, 
-  title?: String,
-  category?: String,
-  description?: String,
-  liveApplicationLink?: string,
-  stackList?: Array<string>,
-  content?: String | TrustedHTML,
-  imgUrl?: any,
+export type ProductData = {
+  _id?: string,
+  name?: string,
+  brand?: string,
+  model?: string,
+  price?: string,
+  color?: string,
+  details?: Object,
+  data?: Array<String>
   createdAt: toDateString
 };
 
