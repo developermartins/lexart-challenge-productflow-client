@@ -2,22 +2,21 @@ import styled from "styled-components";
 import Nav from '../../components/Nav';
 import Input from "../../components/Input";
 import Button from '../../components/Button';
-import Projects from '../../assets/projects.png';
 
-import { createPortfolioPost, getPortfolioPostById, updateProject } from "../../api/projects";
-import { projectValidationSchema } from "../../schemas/validationSchemas";
+import { addProduct, getProductById, updateProduct } from "../../api/products";
+import { productValidationSchema } from "../../schemas/validationSchemas";
 import { useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ThreeCircles } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { PostData } from "../../types";
+import { ProductData } from "../../types";
 import { motion } from "framer-motion";
 
 type Props = {}
 
-type projectFormData = PostData;
+type productFormData = ProductData;
 
 const index = (props: Props) => {
 
@@ -26,7 +25,7 @@ const index = (props: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pageMode = location.pathname.split('/')[1];
-  const projectId = location.pathname.split('/')[3];
+  const productId = location.pathname.split('/')[3];
 
   const {
     register,
@@ -34,35 +33,35 @@ const index = (props: Props) => {
     reset,
     setValue,
     formState: { errors }
-  } = useForm<projectFormData>({
-    resolver: zodResolver(projectValidationSchema)
+  } = useForm<productFormData>({
+    resolver: zodResolver(productValidationSchema)
   });
 
-  const makeProjectSchema = async (data: projectFormData) => {
+  const makeProductSchema = async (data: productFormData) => {
 
     setIsLoading(true);
 
-    const projectSchema = {
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      stackList: data.stackList,
-      liveApplicationLink: data.liveApplicationLink,
+    const productSchema = {
+      name: data.name,
+      brand: data.brand,
+      model: data.model,
+      price: data.price,
+      color: data.color,
     };
 
     if (pageMode === 'update') {
-      const updateProjectResponse = await updateProject(projectId, projectSchema, token);
+      const updateProductResponse = await updateProduct(productId, productSchema, token);
 
-      if (updateProjectResponse.status === 201) {
+      if (updateProductResponse.status === 200) {
         setIsLoading(false);
-        navigate(`/project-preview/project/${projectId}`);
+        navigate(`/product-preview/product/${productId}`);
         reset();
       };
 
     } else {
-      const projectResponse = await createPortfolioPost(projectSchema, token);
+      const productResponse = await addProduct(productSchema, token);
 
-      if (projectResponse.status === 201) {
+      if (productResponse.status === 201) {
         setIsLoading(false);
         navigate("/home");
         reset();
@@ -72,15 +71,15 @@ const index = (props: Props) => {
 
   useEffect(() => {
     if(pageMode === 'update') {
-      const projectToUpdate = async () => {
-        const res = await getPortfolioPostById(projectId);
+      const productToUpdate = async () => {
+        const res = await getProductById(productId, token);
 
-        const fields = ["imgUrl", "title", "category", "description", "stackList", "liveApplicationLink"]
+        const fields = ["name", "brand", "model", "price", "color"]
 
         fields.forEach((field: any) => setValue(field, res.data[field]));
       };
 
-      projectToUpdate();
+      productToUpdate();
     };
   }, []);
 
@@ -102,16 +101,15 @@ const index = (props: Props) => {
         >
           <HeaderContainer>
             <Header>
-              { pageMode === 'update' ? 'Update project' : 'Write project'}
+              { pageMode === 'update' ? 'Update a product' : 'Add a product'}
             </Header>
-            <HeaderIcon src={ Projects } />
           </HeaderContainer>
 
-          <Form onSubmit={ handleSubmit(makeProjectSchema) }>
+          <Form onSubmit={ handleSubmit(makeProductSchema) }>
 
             <Input
               type={ 'text' }
-              placeholder={ 'Title' }
+              placeholder={ 'Name' }
               borderTopRightRadius={ '25px' }
               borderTopLeftRadius={ '25px' }
               borderBottomRightRadius={ '5px' }
@@ -119,14 +117,14 @@ const index = (props: Props) => {
               padding={ '1.5rem' }
               width={ '48.563rem' }
               marginBottom={ '.2rem' }
-              useFormRegister={ register('title') }
-              inputError={ errors.title }
-              errorMessage={ errors?.title?.message }
+              useFormRegister={ register('name') }
+              inputError={ errors.name }
+              errorMessage={ errors?.name?.message }
             />
 
             <Input
               type={ 'text' }
-              placeholder={ 'Category' }
+              placeholder={ 'Brand' }
               borderTopRightRadius={ '5px' }
               borderTopLeftRadius={ '5px' }
               borderBottomRightRadius={ '5px' }
@@ -134,14 +132,14 @@ const index = (props: Props) => {
               padding={ '1.5rem' }
               width={ '48.563rem' }
               marginBottom={ '.2rem' }
-              useFormRegister={ register('category') }
-              inputError={ errors.category }
-              errorMessage={ errors?.category?.message }
+              useFormRegister={ register('brand') }
+              inputError={ errors.brand }
+              errorMessage={ errors?.brand?.message }
             />
 
             <Input
               type={ 'text' }
-              placeholder={ 'Description' }
+              placeholder={ 'Model' }
               borderTopRightRadius={ '5px' }
               borderTopLeftRadius={ '5px' }
               borderBottomRightRadius={ '5px' }
@@ -149,14 +147,14 @@ const index = (props: Props) => {
               padding={ '1.5rem' }
               width={ '48.563rem' }
               marginBottom={ '.2rem' }
-              useFormRegister={ register('description') }
-              inputError={ errors.description }
-              errorMessage={ errors?.description?.message }
+              useFormRegister={ register('model') }
+              inputError={ errors.model }
+              errorMessage={ errors?.model?.message }
             />
 
             <Input
               type={ 'text' }
-              placeholder={ 'Project URL' }
+              placeholder={ 'Price' }
               borderTopRightRadius={ '5px' }
               borderTopLeftRadius={ '5px' }
               borderBottomRightRadius={ '5px' }
@@ -164,14 +162,14 @@ const index = (props: Props) => {
               padding={ '1.5rem' }
               width={ '48.563rem' }
               marginBottom={ '.2rem' }
-              useFormRegister={ register('liveApplicationLink') }
-              inputError={ errors.liveApplicationLink }
-              errorMessage={ errors?.liveApplicationLink?.message }
+              useFormRegister={ register('price') }
+              inputError={ errors.price }
+              errorMessage={ errors?.price?.message }
             />
 
             <Input
               type={ 'text' }
-              placeholder={ 'Stacks' }
+              placeholder={ 'Color' }
               borderTopRightRadius={ '5px' }
               borderTopLeftRadius={ '5px' }
               borderBottomRightRadius={ '25px' }
@@ -179,9 +177,9 @@ const index = (props: Props) => {
               padding={ '1.5rem' }
               width={ '48.563rem' }
               marginBottom={ '.2rem' }
-              useFormRegister={ register('stackList') }
-              inputError={ errors.stackList }
-              errorMessage={ errors?.stackList?.message }
+              useFormRegister={ register('color') }
+              inputError={ errors.color }
+              errorMessage={ errors?.color?.message }
             />
 
             <ButtonsContainer>
@@ -201,9 +199,9 @@ const index = (props: Props) => {
                   />
                 </LoaderContainer> :
                 <Button
-                  typeButton="submit"
-                  buttonFunction={() => ""}
-                  content={"Publish"}
+                  typeButton={ "submit" }
+                  buttonFunction={() => ''}
+                  content={"Add product"}
                 />
               }
             </ButtonsContainer>
@@ -257,8 +255,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: auto;
-  margin-top: 4rem;
+  margin-top: 2rem;
 `;
 
 const Header = styled.h1`
@@ -268,18 +265,13 @@ const Header = styled.h1`
   margin-left: 3rem;
 `;
 
-const HeaderIcon = styled.img`
-  height: 5.5rem;
-  margin-top: 2.5rem;
-  margin-right: 3rem;
-`;
-
 const Form = styled.form`
   width: 80rem;
   height: 55rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5rem;
 `;
 
 const ButtonsContainer = styled.div`
@@ -289,18 +281,6 @@ const ButtonsContainer = styled.div`
   justify-content: right;
   margin-top: 3rem;
   margin-bottom: 5rem;
-`;
-
-const ProgressContainer = styled.div`
-  display: flex;
-  justify-content: right;
-  width: 51rem;
-  margin-bottom: 1rem;
-`;
-
-const Progress = styled.p`
-  font-size: .8rem;
-  color: var(--active-color);
 `;
 
 const LoaderContainer = styled.div`

@@ -3,7 +3,7 @@ import App from './App'
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Post from './pages/Post';
-import WriteProject from './pages/WriteProject';
+import AddProject from './pages/AddProduct';
 import CreateAccount from './pages/CreateAccount';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './state/state';
@@ -63,20 +63,16 @@ const router = createBrowserRouter([
             element: <Home />
           },
           {
-            path: '/post-preview/draft/:id',
-            element: <Post />
-          },
-          {
             path: '/post-preview/post/:id',
             element: <Post />
           },
           {
             path: '/write-project',
-            element: <WriteProject />
+            element: <AddProject />
           },
           {
-            path: '/update/update-project/:id',
-            element: <WriteProject />
+            path: '/product-preview/product/:id',
+            element: <AddProject />
           },
         ],
       },
