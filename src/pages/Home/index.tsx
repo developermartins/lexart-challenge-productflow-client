@@ -6,7 +6,7 @@ import Filter from '../../components/Filter';
 import { AnimatePresence, motion } from 'framer-motion';
 import { getPortfolioPost } from '../../api/projects';
 import { ThreeCircles } from "react-loader-spinner";
-import { getBlogPost } from '../../api/blog';
+// import { getBlogPost } from '../../api/blog';
 import { useEffect, useState } from 'react';
 import { getDraft } from '../../api/draft';
 
@@ -28,21 +28,9 @@ const index = (props: Props) => {
     const loadData = async () => {
       setIsLoading(true);
 
-      const [
-        posts,
-        projects,
-        drafts
-      ] = await Promise.all([
-        getBlogPost(),
-        getPortfolioPost(),
-        getDraft(),
-      ]);
 
-      setData({
-        blogPosts: posts.data,
-        portfolio: projects.data,
-        drafts: drafts.data
-      });
+
+      // setData();
 
       setIsLoading(false);
     };

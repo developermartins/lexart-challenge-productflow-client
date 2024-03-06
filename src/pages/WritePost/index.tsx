@@ -11,12 +11,12 @@ import { motion } from "framer-motion";
 import { PostData } from "../../types";
 import { useForm } from "react-hook-form";
 import { createDraft } from "../../api/draft";
-import { updateBlogPost } from "../../api/blog";
+import { updateBlogPost } from "../../api/products";
 import { ThreeCircles } from "react-loader-spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { createBlogPost, getBlogPostById } from "../../api/blog";
+import { createBlogPost, getBlogPostById } from "../../api/products";
 import { postValidationSchema } from "../../schemas/validationSchemas";
 import { cleanEditorContent, setEditorContent } from "../../state/state";
 

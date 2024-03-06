@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { deleteDraft } from '../../api/draft';
 import { getDraftById } from '../../api/draft';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { deleteBlogPost, getBlogPostById } from '../../api/blog';
+import { deleteBlogPost, getBlogPostById } from '../../api/products';
 
 type Props = {}
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { deletePortfolioPost } from '../../api/projects';
 import { PostData, styleTypes } from '../../types';
-import { deleteBlogPost } from '../../api/blog';
+import { deleteBlogPost } from '../../api/products';
 import { useNavigate } from 'react-router-dom';
 import { deleteDraft } from '../../api/draft';
 import { Link, To } from 'react-router-dom';
