@@ -1,14 +1,12 @@
 import PostMenu from '../PostMenu';
 import styled from 'styled-components';
 
-import { deletePortfolioPost } from '../../api/projects';
 import { ProductData, styleTypes } from '../../types';
-// import { deleteBlogPost } from '../../api/products';
+import { deleteProduct } from '../../api/products';
 import { useNavigate } from 'react-router-dom';
 import { Link, To } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import { deleteProduct } from '../../api/products';
 
 interface Props extends styleTypes {
   cardContent: ProductData,
@@ -65,14 +63,6 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
         </Time>
       </p>
 
-      {/* <StackTagsContainer>
-        {
-          cardContent?.stackList?.map((stack) => (
-            <StackTag content={ stack } />
-          ))
-        }
-      </StackTagsContainer> */}
-
       <PostMenu
         deleteFunction={ () => handleDiscart() }
         updateFunction={ () => navigate(`/update/update-project/${ cardContent.id }`) }
@@ -94,16 +84,6 @@ const Card = styled.div`
   margin: 1rem;
   filter: drop-shadow(0 8px 5px black);
   cursor: pointer;
-`;
-
-const CardBanner = styled.div<styleTypes>`
-  width: 8rem;
-  height: 4.188rem;
-  border-radius: 15px;
-  background-image: url(${ props => props.imgUrl });
-  background-size: cover;
-  background-position: 5%;
-  pointer-events: none;
 `;
 
 const CardTitle = styled.p`
