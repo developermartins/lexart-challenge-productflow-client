@@ -3,7 +3,6 @@ import Nav from '../../components/Nav';
 import Input from "../../components/Input";
 import Button from '../../components/Button';
 import Projects from '../../assets/projects.png';
-import UploadImage from '../../components/UploadImage';
 
 import { createPortfolioPost, getPortfolioPostById, updateProject } from "../../api/projects";
 import { projectValidationSchema } from "../../schemas/validationSchemas";
@@ -22,10 +21,7 @@ type projectFormData = PostData;
 
 const index = (props: Props) => {
 
-  const [img, setImg] = useState(undefined);
-  const [fileUrl, setFileUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [imgPercentage, setImgPercentage] = useState(0);
   const token = useSelector((state: any) => state.token);
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,7 +48,6 @@ const index = (props: Props) => {
       description: data.description,
       stackList: data.stackList,
       liveApplicationLink: data.liveApplicationLink,
-      imgUrl: fileUrl,
     };
 
     if (pageMode === 'update') {
@@ -113,18 +108,6 @@ const index = (props: Props) => {
           </HeaderContainer>
 
           <Form onSubmit={ handleSubmit(makeProjectSchema) }>
-            <UploadImage
-              register={ register }
-              img={ img }
-              setImg={ setImg }
-              setFileUrl={ setFileUrl }
-              setImgPercentage={ setImgPercentage }
-            />
-            <ProgressContainer>
-              {
-                img && <Progress>{ `${ imgPercentage }%` }</Progress>
-              }
-            </ProgressContainer>
 
             <Input
               type={ 'text' }

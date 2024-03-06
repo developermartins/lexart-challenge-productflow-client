@@ -5,7 +5,6 @@ import Input from "../../components/Input";
 import Editor from '../../components/Editor';
 import Button from '../../components/Button';
 import Blogging from '../../assets/blogging.png';
-import UploadImage from '../../components/UploadImage';
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -29,10 +28,7 @@ const index = (props: Props) => {
   const content = useSelector((state: any) => state.editorContent);
   const [isPublishLoading, setIsPublishLoading] = useState(false);
   const [isDraftLoading, setIsDraftLoading] = useState(false);
-  const [imgPercentage, setImgPercentage] = useState(0);
   const [quillValue, setQuillValue] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
-  const [img, setImg] = useState(undefined);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -95,7 +91,6 @@ const index = (props: Props) => {
       description: data?.description,
       stackList: data?.stackList?.toString().split(','),
       content: content,
-      imgUrl: fileUrl,
     };
 
 
@@ -168,18 +163,6 @@ const index = (props: Props) => {
           </HeaderContainer>
 
           <Form onSubmit={ handleSubmit(makePostSchema) }>
-            <UploadImage
-              register={ register }
-              img={ img }
-              setImg={ setImg }
-              setFileUrl={ setFileUrl }
-              setImgPercentage={ setImgPercentage }
-            />
-            <ProgressContainer>
-              {
-                img && <Progress>{ `${ imgPercentage }%` }</Progress>
-              }
-            </ProgressContainer>
 
             <Input
               type={ 'text' }
