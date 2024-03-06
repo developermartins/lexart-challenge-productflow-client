@@ -46,8 +46,8 @@ const index = (props: Props) => {
       
       dispatch(
         makeLogin({
-          user: loginResponse.data.others,
-          token: loginResponse.data.token,
+          user: loginResponse?.data?.others,
+          token: loginResponse?.data?.token,
         })
       );
       setIsLoading(false);
@@ -189,7 +189,7 @@ const Left = styled.div`
   width: 39.909rem;
   height: 48.625rem;
   background-color: var(--main-color);
-  background-image: url('/static/images/home.gif');
+  background-image: url('/static/images/home-banner.png');
   background-size: cover;
   background-position: center;
   border-top-right-radius: 10px;
@@ -200,24 +200,7 @@ const Left = styled.div`
   align-items: center;
   justify-content: center;
 
-  ::before {
-    content: "";
-  }
-
-  ::after {
-    content: "";
-    width: 39.909rem;
-    height: 48.625rem;
-
-    /* From https://css.glass */
-    background: rgba(20, 21, 24, 0.65);
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 30px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  }
+  
 `;
 
 const Right = styled.div`
