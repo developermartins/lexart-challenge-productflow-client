@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CreateAccountBox from "../../components/CreateAccountBox";
+import React from "react";
 
 
 type Props = {}
