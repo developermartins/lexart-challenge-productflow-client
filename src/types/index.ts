@@ -1,7 +1,7 @@
 type toDateString = Date;
 
 export type ProductData = {
-  _id?: string,
+  id?: string,
   name?: string,
   brand?: string,
   model?: string,

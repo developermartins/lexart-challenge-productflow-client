@@ -1,4 +1,3 @@
-import StackTag from '../StackTag';
 import PostMenu from '../PostMenu';
 import styled from 'styled-components';
 
@@ -9,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link, To } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+import { deleteProduct } from '../../api/products';
 
 interface Props extends styleTypes {
   cardContent: ProductData,
@@ -20,46 +20,24 @@ interface Props extends styleTypes {
 
 const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props) => {
 
-  console.log(cardContent)
-
   const navigate = useNavigate();
   const token = useSelector((state: any) => state.token);
 
   const handleDiscart = async () => {
 
-      // if (activeFilter === 'posts') {
-      //   // const res = await deleteBlogPost(cardContent._id, token);
+    const res = await deleteProduct(cardContent.id, token);
 
-      //   // if (res.status === 200) {
-      //   //   const updatedCardList = filtered.filter((data: any) => data._id !== cardContent._id);
+    if (res.status === 200) {
+      const updatedCardList = filtered.filter((data: any) => data.id !== cardContent.id);
 
-      //   //   setFiltered(updatedCardList);
-      //   // }
-      // } else if (activeFilter === 'portfolio') {
-      //     const res = await deletePortfolioPost(cardContent._id, token);
-
-      //     if (res.status === 200) {
-      //       const updatedCardList = filtered.filter((data: any) => data._id !== cardContent._id);
-  
-      //       setFiltered(updatedCardList);
-      //     }
-      // } else if (activeFilter === 'drafts') {
-      //   const res = await deleteDraft(cardContent._id, token);
-
-      //   if (res.status === 200) {
-      //     const updatedCardList = filtered.filter((data: any) => data._id !== cardContent._id);
-
-      //     setFiltered(updatedCardList);
-      //   }
-      // } else {
-      //   return;
-      // };
+      setFiltered(updatedCardList);
+    }
   };
 
   return (
     <Card
       as={ motion.div }
-      key={ cardContent._id }
+      key={ cardContent.id }
       transition={{ duration: 0.5 }}
       initial={{
         opacity: 0,
@@ -71,7 +49,7 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
       }}
       exit={{ x: -100, opacity: 0 }}
     >
-      <Link to={`${ path }${ cardContent._id }` } style={{ textDecoration: 'none', color: 'var(--main-font-color)' }}>
+      <Link to={`${ path }${ cardContent.id }` } style={{ textDecoration: 'none', color: 'var(--main-font-color)' }}>
         <CardTitle>{ cardContent.name }</CardTitle>
       </Link>
 
@@ -97,7 +75,7 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
 
       <PostMenu
         deleteFunction={ () => handleDiscart() }
-        updateFunction={ () => navigate(`/update/update-project/${ cardContent._id }`) }
+        updateFunction={ () => navigate(`/update/update-project/${ cardContent.id }`) }
         typeButton='button'
       />
     </Card>
