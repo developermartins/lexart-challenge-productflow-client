@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { userRegisterFormSchema } from "../../schemas/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import { makeLogin } from "../../state/state";
 import { useDispatch } from "react-redux";
