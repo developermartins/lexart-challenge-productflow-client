@@ -175,7 +175,7 @@ const Left = styled.div`
   width: 39.909rem;
   height: 48.625rem;
   background-color: var(--main-color);
-  background-image: url('/static/images/home-banner.png');
+  background-image: url('/static/images/login-banner.png');
   background-size: cover;
   background-position: center;
   border-top-right-radius: 10px;

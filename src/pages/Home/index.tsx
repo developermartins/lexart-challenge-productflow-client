@@ -157,7 +157,7 @@ const Top = styled.div`
   border-bottom-left-radius: 15px;
   border-top-right-radius: 35px;
   border-bottom-right-radius: 15px;
-  background-image: url('/static/images/profile-wallpaper.png');
+  background-image: url('/static/images/home-banner.jpg');
   background-position: center;
   background-size: cover;
   position: relative;
