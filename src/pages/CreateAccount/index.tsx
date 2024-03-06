@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CreateAccountBox from "../../components/CreateAccountBox";
+import CreateAccountBox from "../../components/ForgotPasswordBox";
 
 
 type Props = {}

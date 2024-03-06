@@ -1,6 +1,6 @@
-import ApiErrorMessageSpan from "../../components/ApiErrorMessageSpan";
-import Button from "../../components/Button";
-import Input from '../../components/Input';
+import ApiErrorMessageSpan from "../ApiErrorMessageSpan";
+import Button from "../Button";
+import Input from '../Input';
 import styled from "styled-components";
 
 import { userRegisterFormSchema } from "../../schemas/validationSchemas";

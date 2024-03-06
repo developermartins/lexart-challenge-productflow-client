@@ -5,15 +5,11 @@ import Home from './pages/Home';
 import Post from './pages/Post';
 import WritePost from './pages/WritePost';
 import WriteProject from './pages/WriteProject';
-import Project from './pages/Project';
 import Bio from './pages/Bio';
 import CreateAccount from './pages/CreateAccount';
-import RecoverAccount from './pages/RecoverAccount';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './state/state';
 import PrivateRoutes from './components/PrivateRoutes';
-import AccountPassword from './pages/AccountPassword';
-import AccountInfo from './pages/AccountInfo';
 
 import './index.css';
 
@@ -62,10 +58,6 @@ const router = createBrowserRouter([
         element: <CreateAccount />
       },
       {
-        path: '/recover-account',
-        element: <RecoverAccount />
-      },
-      {
         element: <PrivateRoutes />,
         children: [
           {
@@ -97,20 +89,8 @@ const router = createBrowserRouter([
             element: <WriteProject />
           },
           {
-            path: '/project-preview/project/:id',
-            element: <Project />
-          },
-          {
             path: '/bio',
             element: <Bio />
-          },
-          {
-            path: '/settings/account/password/update',
-            element: <AccountPassword />
-          },
-          {
-            path: '/settings/account/info/update',
-            element: <AccountInfo />
           },
         ],
       },

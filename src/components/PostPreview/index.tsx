@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import PostMenu from '../../components/PostMenu';
 import Person4RoundedIcon from '@mui/icons-material/Person4Rounded';
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
 
@@ -98,11 +97,6 @@ const index = (props: Props) => {
                 <p>{ new Date(post.createdAt).toLocaleDateString() }</p>
               </PostAuthor>
 
-              <PostMenu
-                deleteFunction={ () => handleDiscart() }
-                updateFunction={ () => navigate(`/update/update-post/${ id }`) }
-                typeButton='button'
-              />
             </PostAuthorContainer>
 
             <PostContent
