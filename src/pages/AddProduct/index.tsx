@@ -111,9 +111,35 @@ const index = () => {
       const productToUpdate = async () => {
         const res = await getProductById(productId, token);
 
-        const fields = ["name", "brand", "model", "price", "color"]
+        if(res.data.details) {
+          setProductType('detailed');
 
-        fields.forEach((field: any) => setValue(field, res.data[field]));
+          const detailsObj = JSON.parse(res.data.details);
+
+          setValue("name", res.data.name);
+          setValue("brand", detailsObj.brand);
+          setValue("model", detailsObj.model);
+          setValue("price", res.data.price);
+          setValue("color", detailsObj.color);
+
+        } else if(res.data.data) {
+
+          setProductType('productWithOptions');
+
+          const dataArray = JSON.parse(res.data.data);
+
+          setValue("name", res.data.name);
+          setValue("brand", res.data.brand);
+          setValue("model", res.data.model);
+
+          dataArray.forEach((field: any) => append({ price: field.price, color: field.color }))
+
+        } else {
+          const fields = ["name", "brand", "model", "price", "color"]
+  
+          fields.forEach((field: any) => setValue(field, res.data[field]));
+        }
+
       };
 
       productToUpdate();
@@ -460,6 +486,7 @@ const index = () => {
 
             {
               fields.map((field, index) => (
+
                 <DynamicInputContainer key={ field.id }>
 
                   <Input
@@ -716,6 +743,10 @@ const DynamicInputButton = styled.button`
   background-color: var(--main-button);
   color: var(--main-font-color);
   cursor: pointer;
+
+  :hover {
+    color: var(--active-color);
+  }
 `;
 
 export default index;
