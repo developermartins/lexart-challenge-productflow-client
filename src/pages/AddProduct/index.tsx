@@ -44,13 +44,30 @@ const index = () => {
 
     setIsLoading(true);
 
-    const productSchema = {
-      name: data.name,
-      brand: data.brand,
-      model: data.model,
-      price: data.price,
-      color: data.color,
-    };
+    let productSchema = {};
+
+    if (productType === 'detailed') {
+      productSchema = {
+        name: data.name,
+        details: {
+          brand: data.brand,
+          model: data.model,
+          color: data.color,
+        },
+        price: data.price,
+      };
+      
+    } else if (productType === 'productWithOptions') {
+
+    } else {
+      productSchema = {
+        name: data.name,
+        brand: data.brand,
+        model: data.model,
+        price: data.price,
+        color: data.color,
+      };
+    }
 
     if (pageMode === 'update') {
       const updateProductResponse = await updateProduct(productId, productSchema, token);
@@ -63,6 +80,7 @@ const index = () => {
       };
 
     } else {
+
       const productResponse = await addProduct(productSchema, token);
 
       if (productResponse.status === 201) {
@@ -154,7 +172,10 @@ const index = () => {
             </ProductOptionByPriceAndColorBtn>
           </OptionsContainer>
 
-          <Form onSubmit={ handleSubmit(makeProductSchema) }>
+          {
+            productType === 'default' &&
+            
+            <Form onSubmit={ handleSubmit(makeProductSchema) }>
 
             <Input
               type={ 'text' }
@@ -254,7 +275,227 @@ const index = () => {
                 />
               }
             </ButtonsContainer>
-          </Form>
+            </Form>
+          }
+
+
+          {
+            productType === 'detailed' &&
+            
+            <Form onSubmit={ handleSubmit(makeProductSchema) }>
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Name' }
+              borderTopRightRadius={ '25px' }
+              borderTopLeftRadius={ '25px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('name') }
+              inputError={ errors.name }
+              errorMessage={ errors?.name?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Price' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '25px' }
+              borderBottomLeftRadius={ '25px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('price') }
+              inputError={ errors.price }
+              errorMessage={ errors?.price?.message }
+            />
+
+            <LabelContainer>
+              <Label>Product details</Label>
+            </LabelContainer>
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Brand' }
+              borderTopRightRadius={ '25px' }
+              borderTopLeftRadius={ '25px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('brand') }
+              inputError={ errors.brand }
+              errorMessage={ errors?.brand?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Model' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('model') }
+              inputError={ errors.model }
+              errorMessage={ errors?.model?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Color' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '25px' }
+              borderBottomLeftRadius={ '25px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('color') }
+              inputError={ errors.color }
+              errorMessage={ errors?.color?.message }
+            />
+
+            <ButtonsContainer>
+              { isLoading ?
+                <LoaderContainer>
+                  <ThreeCircles
+                    height="20"
+                    width="20"
+                    color="#06b6d4"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="three-circles-rotating"
+                    outerCircleColor="#06b6d4"
+                    innerCircleColor="#22d3ee"
+                    middleCircleColor="#67e8f9"
+                  />
+                </LoaderContainer> :
+                <Button
+                  typeButton={ "submit" }
+                  buttonFunction={() => ''}
+                  content={"Add product"}
+                />
+              }
+            </ButtonsContainer>
+            </Form>
+          }
+
+          {
+            productType === 'productWithOptions' &&
+            
+            <Form onSubmit={ handleSubmit(makeProductSchema) }>
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Name' }
+              borderTopRightRadius={ '25px' }
+              borderTopLeftRadius={ '25px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('name') }
+              inputError={ errors.name }
+              errorMessage={ errors?.name?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Brand' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('brand') }
+              inputError={ errors.brand }
+              errorMessage={ errors?.brand?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Model' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('model') }
+              inputError={ errors.model }
+              errorMessage={ errors?.model?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Price' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '5px' }
+              borderBottomLeftRadius={ '5px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('price') }
+              inputError={ errors.price }
+              errorMessage={ errors?.price?.message }
+            />
+
+            <Input
+              type={ 'text' }
+              placeholder={ 'Color' }
+              borderTopRightRadius={ '5px' }
+              borderTopLeftRadius={ '5px' }
+              borderBottomRightRadius={ '25px' }
+              borderBottomLeftRadius={ '25px' }
+              padding={ '1.5rem' }
+              width={ '48.563rem' }
+              marginBottom={ '.2rem' }
+              useFormRegister={ register('color') }
+              inputError={ errors.color }
+              errorMessage={ errors?.color?.message }
+            />
+
+            <ButtonsContainer>
+              { isLoading ?
+                <LoaderContainer>
+                  <ThreeCircles
+                    height="20"
+                    width="20"
+                    color="#06b6d4"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="three-circles-rotating"
+                    outerCircleColor="#06b6d4"
+                    innerCircleColor="#22d3ee"
+                    middleCircleColor="#67e8f9"
+                  />
+                </LoaderContainer> :
+                <Button
+                  typeButton={ "submit" }
+                  buttonFunction={() => ''}
+                  content={"Add product"}
+                />
+              }
+            </ButtonsContainer>
+            </Form>
+          }
+
+
         </ContentBox>
 
       </Box>
@@ -398,6 +639,16 @@ const ProductOptionByPriceAndColorBtn = styled.button<SelectedProductFormat>`
   :hover {
     color: var(--active-color);
   }
+`;
+
+const LabelContainer = styled.div`
+  width: 62%;
+  margin-top: .8rem;
+  margin-bottom: .8rem;
+`;
+
+const Label = styled.label`
+  font-size: 1rem;
 `;
 
 export default index;
