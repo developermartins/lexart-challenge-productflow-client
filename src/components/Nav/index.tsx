@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import QueueRoundedIcon from '@mui/icons-material/QueueRounded';
-import logo from "../../assets/martscode-base-logo.png";
+import logo from "../../../public/warehouse.png";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
