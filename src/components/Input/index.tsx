@@ -3,6 +3,7 @@ import styled from "styled-components";
 type Props = {
   type: string,
   placeholder: string,
+  name?: any,
   borderTopRightRadius?: string,
   borderTopLeftRadius?: string,
   borderBottomRightRadius?: string,

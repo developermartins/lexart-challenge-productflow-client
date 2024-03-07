@@ -8,7 +8,10 @@ export type ProductData = {
   price?: string,
   color?: string,
   details?: Object,
-  data?: Array<String>
+  data?: {
+    price: number,
+    color: string
+  }[]
   createdAt: toDateString
 };
 

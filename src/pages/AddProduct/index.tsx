@@ -3,13 +3,13 @@ import Nav from '../../components/Nav';
 import Input from "../../components/Input";
 import Button from '../../components/Button';
 
+import { producWithOptionsValidationSchema, productValidationSchema } from "../../schemas/validationSchemas";
 import { addProduct, getProductById, updateProduct } from "../../api/products";
-import { productValidationSchema } from "../../schemas/validationSchemas";
 import { useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ThreeCircles } from "react-loader-spinner";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { ProductData } from "../../types";
 import { motion } from "framer-motion";
@@ -35,10 +35,20 @@ const index = () => {
     handleSubmit,
     reset,
     setValue,
+    control,
     formState: { errors }
   } = useForm<productFormData>({
-    resolver: zodResolver(productValidationSchema)
+    resolver: productType === 'productWithOptions' ? zodResolver(producWithOptionsValidationSchema) : zodResolver(productValidationSchema),
+    defaultValues: {
+      data: [{ price: 0, color: '' }]
+    }
   });
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'data',
+    control,
+  });
+
 
   const makeProductSchema = async (data: productFormData) => {
 
@@ -58,7 +68,12 @@ const index = () => {
       };
       
     } else if (productType === 'productWithOptions') {
-
+      productSchema = {
+        name: data.name,
+        brand: data.brand,
+        model: data.model,
+        data: data.data,
+      }
     } else {
       productSchema = {
         name: data.name,
@@ -429,8 +444,8 @@ const index = () => {
               placeholder={ 'Model' }
               borderTopRightRadius={ '5px' }
               borderTopLeftRadius={ '5px' }
-              borderBottomRightRadius={ '5px' }
-              borderBottomLeftRadius={ '5px' }
+              borderBottomRightRadius={ '25px' }
+              borderBottomLeftRadius={ '25px' }
               padding={ '1.5rem' }
               width={ '48.563rem' }
               marginBottom={ '.2rem' }
@@ -439,62 +454,94 @@ const index = () => {
               errorMessage={ errors?.model?.message }
             />
 
-            <Input
-              type={ 'text' }
-              placeholder={ 'Price' }
-              borderTopRightRadius={ '5px' }
-              borderTopLeftRadius={ '5px' }
-              borderBottomRightRadius={ '5px' }
-              borderBottomLeftRadius={ '5px' }
-              padding={ '1.5rem' }
-              width={ '48.563rem' }
-              marginBottom={ '.2rem' }
-              useFormRegister={ register('price') }
-              inputError={ errors.price }
-              errorMessage={ errors?.price?.message }
-            />
+            <LabelContainer>
+              <Label>Add product versions</Label>
+            </LabelContainer>
 
-            <Input
-              type={ 'text' }
-              placeholder={ 'Color' }
-              borderTopRightRadius={ '5px' }
-              borderTopLeftRadius={ '5px' }
-              borderBottomRightRadius={ '25px' }
-              borderBottomLeftRadius={ '25px' }
-              padding={ '1.5rem' }
-              width={ '48.563rem' }
-              marginBottom={ '.2rem' }
-              useFormRegister={ register('color') }
-              inputError={ errors.color }
-              errorMessage={ errors?.color?.message }
-            />
+            {
+              fields.map((field, index) => (
+                <DynamicInputContainer key={ field.id }>
 
-            <ButtonsContainer>
-              { isLoading ?
-                <LoaderContainer>
-                  <ThreeCircles
-                    height="20"
-                    width="20"
-                    color="#06b6d4"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="three-circles-rotating"
-                    outerCircleColor="#06b6d4"
-                    innerCircleColor="#22d3ee"
-                    middleCircleColor="#67e8f9"
+                  <Input
+                    type={ 'number' }
+                    placeholder={ 'Price' }
+                    borderTopRightRadius={ '25px' }
+                    borderTopLeftRadius={ '25px' }
+                    borderBottomRightRadius={ '5px' }
+                    borderBottomLeftRadius={ '5px' }
+                    padding={ '1.5rem' }
+                    width={ '48.563rem' }
+                    marginBottom={ '.2rem' }
+                    useFormRegister={ register(`data.${index}.price`, { valueAsNumber: true }) }
+                    inputError={ errors.price }
+                    errorMessage={ errors?.price?.message }
                   />
-                </LoaderContainer> :
-                <Button
-                  typeButton={ "submit" }
-                  buttonFunction={() => ''}
-                  content={"Add product"}
-                />
-              }
-            </ButtonsContainer>
+    
+                  <Input
+                    type={ 'text' }
+                    placeholder={ 'Color' }
+                    borderTopRightRadius={ '5px' }
+                    borderTopLeftRadius={ '5px' }
+                    borderBottomRightRadius={ '25px' }
+                    borderBottomLeftRadius={ '25px' }
+                    padding={ '1.5rem' }
+                    width={ '48.563rem' }
+                    marginBottom={ '.2rem' }
+                    useFormRegister={ register(`data.${index}.color`) }
+                    inputError={ errors.color }
+                    errorMessage={ errors?.color?.message }
+                  />
+
+
+                  <ButtonsContainer>
+                    <DynamicInputButton type="button" onClick={() => {
+                      append({
+                        price: 0,
+                        color: 'Black'
+                      })
+                    }}>
+                      Add more versions
+                    </DynamicInputButton>
+                    <DynamicInputButton 
+                      type="button"
+                      disabled={ fields.length == 1 && true }
+                      onClick={() => {
+                      remove(index)
+                    }}>
+                      Remove version
+                    </DynamicInputButton>
+                  </ButtonsContainer>
+
+
+                </DynamicInputContainer>
+              ))
+            }
+
+              <ButtonsContainer>
+                { isLoading ?
+                  <LoaderContainer>
+                    <ThreeCircles
+                      height="20"
+                      width="20"
+                      color="#06b6d4"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                      ariaLabel="three-circles-rotating"
+                      outerCircleColor="#06b6d4"
+                      innerCircleColor="#22d3ee"
+                      middleCircleColor="#67e8f9"
+                    />
+                  </LoaderContainer> :
+                  <Button
+                    typeButton={ "submit" }
+                    buttonFunction={() => ''}
+                    content={"Add product"}
+                  />
+                }
+              </ButtonsContainer>
             </Form>
           }
-
 
         </ContentBox>
 
@@ -649,6 +696,26 @@ const LabelContainer = styled.div`
 
 const Label = styled.label`
   font-size: 1rem;
+`;
+
+const DynamicInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80rem;
+`;
+
+const DynamicInputButton = styled.button`
+  border: none;
+  outline: none;
+  padding: .8rem;
+  margin-left: .2rem;
+  margin-right: .2rem;
+  border-radius: 6px;
+  background-color: var(--main-button);
+  color: var(--main-font-color);
+  cursor: pointer;
 `;
 
 export default index;
