@@ -20,6 +20,20 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
 
   const navigate = useNavigate();
   const token = useSelector((state: any) => state.token);
+  let details: any = {};
+  let productVariationsList: any = [];
+
+  if (cardContent.details) {
+    const parsedData = JSON.parse(cardContent?.details);
+
+    details = parsedData
+  };
+
+  if (cardContent.data) {
+    const parsedData = JSON.parse(cardContent?.data);
+
+    productVariationsList = parsedData
+  }
 
   const handleDiscart = async () => {
 
@@ -52,9 +66,39 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
       </Link>
 
       <CardDescription>
-        Model: { cardContent.model }
-        Brand: { cardContent.brand }
-        { cardContent && new Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(cardContent.price!)) }
+        <>
+          {
+            !cardContent.details && !cardContent.data && (
+              <>
+                <span>Model: { cardContent.model }</span>
+                <span>Brand: { cardContent.brand }</span>
+                <span>Price: { cardContent && new Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(cardContent.price!)) }</span>
+                <span>Color: { cardContent.color }</span>
+              </>
+            )
+          }
+        </>        
+
+        <>
+          {
+            cardContent?.details ? (
+              <>
+                <span>Price: { new Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(cardContent.price!)) }</span>
+                <span>Brand: { details.brand }</span>
+                <span>Model: { details.model }</span>
+                <span>Color: { details.color }</span>
+              </>
+            ) : (
+                productVariationsList.map((variation: any) => (
+                  <>
+                    <span>Price: { new Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(variation.price!)) }</span>
+                    <span>Color: { variation.color }</span>
+                  </>
+                )
+              )
+            )
+          }
+        </>
       </CardDescription>
 
       <p>
@@ -73,8 +117,8 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
 };
 
 const Card = styled.div`
-  width: 90.375rem;
-  height: 5.438rem;
+  width: 95%;
+  height: 8rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -103,25 +147,18 @@ const CardTitle = styled.p`
 const CardDescription = styled.p`
   font-size: .9rem!important;
   font-weight: 300;
-  /* max-width: 15ch; */
+  max-height: 15ch;
   display: flex;
-  /* overflow: hidden;
+  flex-direction: column;
+  overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; */
+  white-space: nowrap;
 `;
 
 const Time = styled.time`
   color: white;
   font-size: 1rem;
   font-weight: 300;
-`;
-
-const StackTagsContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  height: auto;
-  width: auto;
 `;
 
 export default index;

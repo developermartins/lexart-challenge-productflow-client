@@ -4,7 +4,6 @@ import Card from '../../components/Card';
 import Filter from '../../components/Filter';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { getPortfolioPost } from '../../api/projects';
 import { ThreeCircles } from "react-loader-spinner";
 import { getAllProducts } from '../../api/products';
 import { useEffect, useState } from 'react';
@@ -34,8 +33,6 @@ const index = (props: Props) => {
 
     loadData();
   }, []);
-
-  console.log(data)
 
   return (
     <MainSection>

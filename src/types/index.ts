@@ -7,11 +7,11 @@ export type ProductData = {
   model?: string,
   price?: string,
   color?: string,
-  details?: Object,
+  details?: string,
   data?: {
     price: number,
     color: string
-  }[]
+  }[] | any,
   createdAt: toDateString
 };
 

@@ -28,9 +28,8 @@ const index = ({ deleteFunction, updateFunction, typeButton }: Props) => {
         <EditNoteRoundedIcon
           style={{ fontSize: '1.2rem' }}
         />
+        <span>Update product</span>
       </EditButton>
-
-      <Divider />
 
       <DeleteButton
         as={ motion.button }
@@ -64,7 +63,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const EditButton = styled.button`
-  width: 8.875rem;
+  width: 50rem;
   height: 2.375rem;
   background-color: var(--main-button);
   display: flex;
@@ -74,8 +73,9 @@ const EditButton = styled.button`
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   color: var(--main-font-color);
-  padding: 0rem;
+  padding: 1rem;
   cursor: pointer;
+  font-size: .7rem;
 
   :hover {
     color: var(--active-color);
@@ -83,7 +83,7 @@ const EditButton = styled.button`
 `;
 
 const DeleteButton = styled.button`
-  width: 8.875rem;
+  width: 10rem;
   height: 2.375rem;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -94,17 +94,11 @@ const DeleteButton = styled.button`
   border: none;
   color: var(--main-font-color);
   cursor: pointer;
+  padding: 1rem;
 
   :hover {
     color: var(--delete-color);
   }
 `;
-
-const Divider = styled.hr`
-  height: 80%;
-  width: 3px;
-  border: none;
-  background-color: var(--line-color);
-`
 
 export default index;
