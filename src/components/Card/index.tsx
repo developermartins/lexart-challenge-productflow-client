@@ -13,10 +13,9 @@ interface Props extends styleTypes {
   path: To,
   filtered: any,
   setFiltered: Function, 
-  activeFilter: string,
 };
 
-const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props) => {
+const index = ({ path, cardContent, filtered, setFiltered }: Props) => {
 
   const navigate = useNavigate();
   const token = useSelector((state: any) => state.token);

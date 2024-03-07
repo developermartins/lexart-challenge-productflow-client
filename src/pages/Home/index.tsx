@@ -16,7 +16,6 @@ const index = (props: Props) => {
   const token = useSelector((state: any) => state.token);
   const [isLoading, setIsLoading] = useState(false);
   const [filtered, setFiltered] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('posts');
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -52,12 +51,11 @@ const index = (props: Props) => {
           <Top>
             <h1>Overview</h1>
 
-            {/* <Filter
+            <Filter
               data={ data }
               setFiltered={ setFiltered }
-              activeFilter={ activeFilter }
-              setActiveFilter={ setActiveFilter }
-            /> */}
+              setIsLoading={ setIsLoading }
+            />
           </Top>
 
           <Bottom>
@@ -83,11 +81,10 @@ const index = (props: Props) => {
                   !filtered.length ? <p>Nothing yet...</p> :
                   filtered?.map((data) => (
                     <Card
-                      path={ activeFilter === 'posts' ? '/post-preview/post/' : '/project-preview/project/' }
+                      path={ ' ' }
                       cardContent={ data }
                       filtered={ filtered }
                       setFiltered={ setFiltered }
-                      activeFilter={ activeFilter }
                     />
                   ))
                 }
@@ -131,7 +128,6 @@ const ContentBox = styled.section`
   border-top-right-radius: 35px;
   border-bottom-right-radius: 35px;
   padding: .5rem;
-  /* justify-content: space-around; */
 `;
 
 const Top = styled.div`
