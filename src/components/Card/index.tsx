@@ -47,7 +47,7 @@ const index = ({ path, cardContent, filtered, setFiltered, activeFilter }: Props
       }}
       exit={{ x: -100, opacity: 0 }}
     >
-      <Link to={`${ path }${ cardContent.id }` } style={{ textDecoration: 'none', color: 'var(--main-font-color)' }}>
+      <Link to={`/home` } style={{ textDecoration: 'none', color: 'var(--main-font-color)' }}>
         <CardTitle>{ cardContent.name }</CardTitle>
       </Link>
 

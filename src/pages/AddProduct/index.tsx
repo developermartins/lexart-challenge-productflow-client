@@ -54,7 +54,8 @@ const index = (props: Props) => {
 
       if (updateProductResponse.status === 200) {
         setIsLoading(false);
-        navigate(`/product-preview/product/${productId}`);
+        // navigate(`/product-preview/product/${productId}`);
+        navigate('/home')
         reset();
       };
 
@@ -104,6 +105,45 @@ const index = (props: Props) => {
               { pageMode === 'update' ? 'Update a product' : 'Add a product'}
             </Header>
           </HeaderContainer>
+
+          <OptionsContainer>
+            <BasicProductOptionBtn
+              as={ motion.button }
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 10
+              }}
+            >
+              Add default product
+            </BasicProductOptionBtn>
+            <DetailedProductOptionBtn
+              as={ motion.button }
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 10
+              }}
+            >
+              Add detailed product
+            </DetailedProductOptionBtn>
+            <ProductOptionByPriceAndColorBtn
+              as={ motion.button }
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 10
+              }}
+            >
+              Add product with price & color
+            </ProductOptionByPriceAndColorBtn>
+          </OptionsContainer>
 
           <Form onSubmit={ handleSubmit(makeProductSchema) }>
 
@@ -293,6 +333,62 @@ const LoaderContainer = styled.div`
   border-radius: 15px;
   margin-left: 1.5rem;
   cursor: pointer;
+`;
+
+const OptionsContainer = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const BasicProductOptionBtn = styled.button`
+  border: none;
+  outline: none;
+  padding: .8rem;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 12px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 12px;
+  background-color: var(--main-button);
+  cursor: pointer;
+  color: var(--main-font-color);
+
+  :hover {
+    color: var(--active-color);
+  }
+`;
+
+const DetailedProductOptionBtn = styled.button`
+  border: none;
+  outline: none;
+  padding: .8rem;
+  margin-left: .2rem;
+  margin-right: .2rem;
+  border-radius: 6px;
+  background-color: var(--main-button);
+  cursor: pointer;
+  color: var(--main-font-color);
+
+  :hover {
+    color: var(--active-color);
+  }
+`;
+
+const ProductOptionByPriceAndColorBtn = styled.button`
+  border: none;
+  outline: none;
+  padding: .8rem;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 6px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 6px;
+  background-color: var(--main-button);
+  cursor: pointer;
+  color: var(--main-font-color);
+
+  :hover {
+    color: var(--active-color);
+  }
 `;
 
 export default index;

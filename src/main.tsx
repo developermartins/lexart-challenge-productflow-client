@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import Login from './pages/Login';
 import Home from './pages/Home';
-import Post from './pages/Post';
 import AddProject from './pages/AddProduct';
 import CreateAccount from './pages/CreateAccount';
 import storage from 'redux-persist/lib/storage';
@@ -63,15 +62,11 @@ const router = createBrowserRouter([
             element: <Home />
           },
           {
-            path: '/post-preview/post/:id',
-            element: <Post />
-          },
-          {
             path: '/write-project',
             element: <AddProject />
           },
           {
-            path: '/product-preview/product/:id',
+            path: '/update/update-project/:id',
             element: <AddProject />
           },
         ],
