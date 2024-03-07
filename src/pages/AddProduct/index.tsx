@@ -14,12 +14,15 @@ import { useSelector } from "react-redux";
 import { ProductData } from "../../types";
 import { motion } from "framer-motion";
 
-type Props = {}
+type SelectedProductFormat = {
+  productType: String
+};
 
 type productFormData = ProductData;
 
-const index = (props: Props) => {
+const index = () => {
 
+  const [productType, setProductType] = useState("default");
   const [isLoading, setIsLoading] = useState(false);
   const token = useSelector((state: any) => state.token);
   const navigate = useNavigate();
@@ -108,6 +111,7 @@ const index = (props: Props) => {
 
           <OptionsContainer>
             <BasicProductOptionBtn
+              productType={ productType }
               as={ motion.button }
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -116,10 +120,12 @@ const index = (props: Props) => {
                 stiffness: 300,
                 damping: 10
               }}
+              onClick={() => setProductType("default")}
             >
               Add default product
             </BasicProductOptionBtn>
             <DetailedProductOptionBtn
+              productType={ productType }
               as={ motion.button }
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -128,10 +134,12 @@ const index = (props: Props) => {
                 stiffness: 300,
                 damping: 10
               }}
+              onClick={() => setProductType("detailed")}
             >
               Add detailed product
             </DetailedProductOptionBtn>
             <ProductOptionByPriceAndColorBtn
+              productType={ productType }
               as={ motion.button }
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -140,6 +148,7 @@ const index = (props: Props) => {
                 stiffness: 300,
                 damping: 10
               }}
+              onClick={() => setProductType("productWithOptions")}
             >
               Add product with price & color
             </ProductOptionByPriceAndColorBtn>
@@ -341,7 +350,7 @@ const OptionsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const BasicProductOptionBtn = styled.button`
+const BasicProductOptionBtn = styled.button<SelectedProductFormat>`
   border: none;
   outline: none;
   padding: .8rem;
@@ -351,14 +360,14 @@ const BasicProductOptionBtn = styled.button`
   border-bottom-left-radius: 12px;
   background-color: var(--main-button);
   cursor: pointer;
-  color: var(--main-font-color);
+  color: ${({ productType }) => productType === 'default' ?  'var(--active-color)'  : 'var(--main-font-color)'};
 
   :hover {
     color: var(--active-color);
   }
 `;
 
-const DetailedProductOptionBtn = styled.button`
+const DetailedProductOptionBtn = styled.button<SelectedProductFormat>`
   border: none;
   outline: none;
   padding: .8rem;
@@ -367,14 +376,14 @@ const DetailedProductOptionBtn = styled.button`
   border-radius: 6px;
   background-color: var(--main-button);
   cursor: pointer;
-  color: var(--main-font-color);
+  color: ${({ productType }) => productType === 'detailed' ?  'var(--active-color)'  : 'var(--main-font-color)'};
 
   :hover {
     color: var(--active-color);
   }
 `;
 
-const ProductOptionByPriceAndColorBtn = styled.button`
+const ProductOptionByPriceAndColorBtn = styled.button<SelectedProductFormat>`
   border: none;
   outline: none;
   padding: .8rem;
@@ -384,7 +393,7 @@ const ProductOptionByPriceAndColorBtn = styled.button`
   border-bottom-left-radius: 6px;
   background-color: var(--main-button);
   cursor: pointer;
-  color: var(--main-font-color);
+  color: ${({ productType }) => productType === 'productWithOptions' ?  'var(--active-color)'  : 'var(--main-font-color)'};
 
   :hover {
     color: var(--active-color);
