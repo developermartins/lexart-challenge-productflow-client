@@ -1,4 +1,4 @@
-import PostMenu from '../PostMenu';
+import CardMenu from '../CardMenu';
 import styled from 'styled-components';
 
 import { ProductData, styleTypes } from '../../types';
@@ -106,7 +106,7 @@ const index = ({ path, cardContent, filtered, setFiltered }: Props) => {
         </Time>
       </p>
 
-      <PostMenu
+      <CardMenu
         deleteFunction={ () => handleDiscart() }
         updateFunction={ () => navigate(`/update/update-project/${ cardContent.id }`) }
         typeButton='button'
@@ -127,6 +127,10 @@ const Card = styled.div`
   margin: 1rem;
   filter: drop-shadow(0 8px 5px black);
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 
 const CardTitle = styled.p`
@@ -141,6 +145,10 @@ const CardTitle = styled.p`
     color: var(--active-color);
     transition: .5s;
   }
+
+  @media (max-width: 1024px) {
+    font-size: .8rem!important;
+  }
 `;
 
 const CardDescription = styled.p`
@@ -152,12 +160,21 @@ const CardDescription = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  @media (max-width: 1024px) {
+    font-size: .8rem!important;
+  }
 `;
 
 const Time = styled.time`
   color: white;
   font-size: 1rem;
   font-weight: 300;
+
+  
+  @media (max-width: 1024px) {
+    font-size: .8rem!important;
+  }
 `;
 
 export default index;

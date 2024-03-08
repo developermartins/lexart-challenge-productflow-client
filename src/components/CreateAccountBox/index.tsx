@@ -68,93 +68,98 @@ const index = (props: Props) => {
         ease: [0, 0.71, 0.2, 1.01]
       }}
     >
-      <Top>
-        <Title>Wellcome to ProductFlow App!</Title>
-        <Subtitle>Create account and join us!</Subtitle>
-      </Top>
 
-      <Middle>
+      <Container>
 
-        <Form onSubmit={ handleSubmit(makeRegisterSchema) }>
-            <Input
-              type={ 'text' }
-              placeholder={ 'Username' }
-              borderTopRightRadius={ '25px' }
-              borderTopLeftRadius={ '25px' }
-              borderBottomRightRadius={ '5px' }
-              borderBottomLeftRadius={ '5px' }
-              padding={ '1.5rem' }
-              width={ '30rem' }
-              marginBottom={ '.2rem' }
-              useFormRegister={ register('username') }
-              inputError={ errors.username }
-              errorMessage={ errors?.username?.message }
-            />
+        <Top>
+          <Title>Wellcome to ProductFlow App!</Title>
+          <Subtitle>Create account and join us!</Subtitle>
+        </Top>
 
-            <Input
-              type={ 'text' }
-              placeholder={ 'Email' }
-              borderTopRightRadius={ '5px' }
-              borderTopLeftRadius={ '5px' }
-              borderBottomRightRadius={ '5px' }
-              borderBottomLeftRadius={ '5px' }
-              padding={ '1.5rem' }
-              width={ '30rem' }
-              marginBottom={ '.2rem' }
-              useFormRegister={ register('email') }
-              inputError={ errors.username }
-              errorMessage={ errors?.email?.message }
-            />
+        <Middle>
 
-            <Input
-              type={ 'password' }
-              placeholder={ 'Password' }
-              borderTopRightRadius={ '5px' }
-              borderTopLeftRadius={ '5px' }
-              borderBottomRightRadius={ '25px' }
-              borderBottomLeftRadius={ '25px' }
-              padding={ '1.5rem' }
-              width={ '30rem' }
-              marginBottom={ '.5rem' }
-              useFormRegister={ register('password') }
-              inputError={ errors.password }
-              errorMessage={ errors?.password?.message }
-            />
+          <Form onSubmit={ handleSubmit(makeRegisterSchema) }>
+              <Input
+                type={ 'text' }
+                placeholder={ 'Username' }
+                borderTopRightRadius={ '25px' }
+                borderTopLeftRadius={ '25px' }
+                borderBottomRightRadius={ '5px' }
+                borderBottomLeftRadius={ '5px' }
+                padding={ '1.5rem' }
+                width={ '30rem' }
+                marginBottom={ '.2rem' }
+                useFormRegister={ register('username') }
+                inputError={ errors.username }
+                errorMessage={ errors?.username?.message }
+              />
 
-            {
-              apiErrorMessage && 
-                <ApiErrorMessageSpan message={ apiErrorMessage } />
-            }
+              <Input
+                type={ 'text' }
+                placeholder={ 'Email' }
+                borderTopRightRadius={ '5px' }
+                borderTopLeftRadius={ '5px' }
+                borderBottomRightRadius={ '5px' }
+                borderBottomLeftRadius={ '5px' }
+                padding={ '1.5rem' }
+                width={ '30rem' }
+                marginBottom={ '.2rem' }
+                useFormRegister={ register('email') }
+                inputError={ errors.username }
+                errorMessage={ errors?.email?.message }
+              />
 
-            <Bottom>
+              <Input
+                type={ 'password' }
+                placeholder={ 'Password' }
+                borderTopRightRadius={ '5px' }
+                borderTopLeftRadius={ '5px' }
+                borderBottomRightRadius={ '25px' }
+                borderBottomLeftRadius={ '25px' }
+                padding={ '1.5rem' }
+                width={ '30rem' }
+                marginBottom={ '.5rem' }
+                useFormRegister={ register('password') }
+                inputError={ errors.password }
+                errorMessage={ errors?.password?.message }
+              />
 
-              {isLoading ?
-                <LoaderContainer>
-                  <ThreeCircles
-                    height="20"
-                    width="20"
-                    color="#06b6d4"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="three-circles-rotating"
-                    outerCircleColor="#06b6d4"
-                    innerCircleColor="#22d3ee"
-                    middleCircleColor="#67e8f9"
-                  />
-                </LoaderContainer> :
-                <Button
-                  typeButton={ "submit" }
-                  buttonFunction={ () => '' }
-                  content={ "Create Account" }
-                />
+              {
+                apiErrorMessage && 
+                  <ApiErrorMessageSpan message={ apiErrorMessage } />
               }
 
-            </Bottom>
+              <Bottom>
 
-          </Form>
+                {isLoading ?
+                  <LoaderContainer>
+                    <ThreeCircles
+                      height="20"
+                      width="20"
+                      color="#06b6d4"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                      ariaLabel="three-circles-rotating"
+                      outerCircleColor="#06b6d4"
+                      innerCircleColor="#22d3ee"
+                      middleCircleColor="#67e8f9"
+                    />
+                  </LoaderContainer> :
+                  <Button
+                    typeButton={ "submit" }
+                    buttonFunction={ () => '' }
+                    content={ "Create Account" }
+                  />
+                }
 
-      </Middle>
+              </Bottom>
+
+            </Form>
+
+        </Middle>
+
+      </Container>
     </Box>
   );
 };
@@ -162,17 +167,37 @@ const index = (props: Props) => {
 const Box = styled.section`
   width: 80rem;
   height: 40rem;
-  background-color: var(--card-color);
+  background-color: var(--main-box);
   color: var(--main-font-color);
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+
+  @media (max-width: 1024px) {
+    width: 94%;
+    height: 40rem;
+  };
+`;
+
+const Container = styled.div`
+  width: 78rem;
+  height: 38rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--card-color);
+  border-radius: 15px;
+
+  @media (max-width: 1024px) {
+    width: 96%;
+    height: 38rem;
+  };
 `;
 
 const Top = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,6 +232,8 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 20rem;
+  padding-right: 20rem;
 `;
 
 const LoaderContainer = styled.div`

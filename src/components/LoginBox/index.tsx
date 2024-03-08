@@ -169,6 +169,12 @@ const Box = styled.section`
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+
+
+  @media (max-width: 1024px) {
+    width: 56rem;
+    height: 40rem;
+  };
 `;
 
 const Left = styled.div`
@@ -187,6 +193,10 @@ const Left = styled.div`
   justify-content: center;
 
   
+  @media (max-width: 1024px) {
+    width: 27.909rem;
+    height: 40.625rem;
+  };
 `;
 
 const Right = styled.div`
@@ -200,15 +210,22 @@ const Right = styled.div`
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 30px;
   border-top-left-radius: 10px;
+
+  @media (max-width: 1024px) {
+    width: 27.909rem;
+    height: 40.625rem;
+  };
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 3rem;
 `;
 
 const Recover = styled.p`
+  display: contents;
   font-size: 0.85rem;
   text-decoration: none;
   color: var(--main-font-color);
@@ -227,6 +244,11 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 3.5rem;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+    justify-content: space-between;
+  };
 `;
 
 const LoaderContainer = styled.div`

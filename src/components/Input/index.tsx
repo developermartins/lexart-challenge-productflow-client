@@ -65,6 +65,10 @@ const Input = styled.input<Props>`
   ::placeholder {
     color: ${({ inputError }) => inputError ? 'var(--delete-color)' : 'var(--main-font-color)'};
   }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  };
 `;
 
 export default index;

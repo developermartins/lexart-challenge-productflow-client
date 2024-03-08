@@ -636,6 +636,10 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
+  
+  @media (max-width: 1024px) {
+    width: 70%;
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -644,7 +648,11 @@ const ButtonsContainer = styled.div`
   align-items: center;
   justify-content: right;
   margin-top: 3rem;
-  margin-bottom: 5rem;
+  padding: 2rem;
+
+  @media (max-width: 1024px) {
+    width: 112%;
+  }
 `;
 
 const LoaderContainer = styled.div`
@@ -719,6 +727,10 @@ const LabelContainer = styled.div`
   width: 62%;
   margin-top: .8rem;
   margin-bottom: .8rem;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const Label = styled.label`
@@ -731,6 +743,10 @@ const DynamicInputContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 80rem;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const DynamicInputButton = styled.button`

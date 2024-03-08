@@ -70,6 +70,10 @@ const FilterContainer = styled.div`
   background-color: var(--transparent-main-color);
   backdrop-filter: blur(10px);
   z-index: 9999;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 
 const SearchInput = styled.input`
